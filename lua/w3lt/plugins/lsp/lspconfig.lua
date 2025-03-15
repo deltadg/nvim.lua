@@ -130,12 +130,33 @@ return {
 					capabilities = capabilities,
 					on_attach = function(client, bufnr)
 						-- Disable tsserver formatting if you use another formatter
-						client.resolved_capabilities.document_formatting = false
-						client.resolved_capabilities.document_range_formatting = false
-				
+						client.server_capabilities.document_formatting = false
+						client.server_capabilities.document_range_formatting = false
+
 					end,
 				})
 			end,
+			["tailwindcss"] = function()
+                lspconfig["tailwindcss"].setup({
+                    capabilities = capabilities,
+                    on_attach = function(client, bufnr)
+                        -- Set keybinds
+                        local keymap = vim.keymap
+                        local opts = { buffer = bufnr, silent = true }
+
+                        keymap.set("n", "gd", vim.lsp.buf.definition, opts)
+                        keymap.set("n", "gr", vim.lsp.buf.references, opts)
+                        keymap.set("n", "gi", vim.lsp.buf.implementation, opts)
+                        keymap.set("n", "K", vim.lsp.buf.hover, opts)
+                        keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts)
+                        keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, opts)
+                    end,
+                    filetypes = { "html", "css", "scss", "javascript", "javascriptreact", "typescript", "typescriptreact", "svelte" },
+                    root_dir = function(fname)
+                        return util.root_pattern("tailwind.config.js", "tailwind.config.ts", "postcss.config.js", "postcss.config.ts", "package.json", ".git")(fname)
+                    end,
+                })
+            end,
 		})
 	end,
 }

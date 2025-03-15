@@ -20,3 +20,7 @@ keymap.set("i", "<Esc>b", "<C-Left>") -- Move left by word
 keymap.set("i", "<Esc>f", "<C-Right>") -- Move right by word
 keymap.set("n", "<Esc>b", "b") -- Move left by word in normal mode
 keymap.set("n", "<Esc>f", "w") -- Move right by word in normal mode
+
+-- Increase and decrease current number
+keymap.set("n", "<leader><Up>", "<C-a>", { desc = "Increase current number by one" })
+keymap.set("n", "<leader><Down>", "<C-x>", { desc = "Decrease current number by one" })
