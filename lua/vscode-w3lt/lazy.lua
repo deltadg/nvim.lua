@@ -11,8 +11,7 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 require("lazy").setup({
-	{ import = "w3lt.plugins" },
-	{ import = "w3lt.plugins.lsp" },
+	{ import = "vscode-w3lt.plugins" },
 }, {
 	checker = {
 		enabled = true,
